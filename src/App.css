@@ -1,0 +1,19 @@
+.title {
+  text-align: center;
+}
+
+.main-container {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+}
+
+.grid {
+  display: flex;
+  border: 1px solid black;
+}
+
+.grid-cell {
+  min-width: 20px;
+  min-height: 20px;
+}
