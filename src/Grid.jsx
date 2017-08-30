@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import GridCell from './GridCell.jsx';
-import { colors } from './colors.jsx';
+import { Config } from './Config.jsx';
 
 class Grid extends Component {
   constructor(props) {
@@ -9,7 +9,7 @@ class Grid extends Component {
   }
 
   renderGrid() {
-    let rows = new Array(40);
+    let rows = new Array(Config.gridHeight);
     rows.fill(0);
     return (
       rows.map((elem, row) =>
@@ -22,11 +22,11 @@ class Grid extends Component {
 
   renderGridRow(row) {
     return (
-      this.props.grid.slice(row*40, row*40+40).map((cell, index) =>
+      this.props.grid.slice(row*Config.gridWidth, (row+1)*Config.gridWidth).map((cell, index) =>
         <GridCell
           key={index.toString()}
-          index={row*40+index}
-          color={colors[cell]} />
+          index={row*Config.gridWidth+index}
+          color={Config.colors[cell]} />
       )
     );
   }

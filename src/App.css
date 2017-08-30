@@ -5,15 +5,31 @@
 .main-container {
   display: flex;
   flex-flow: row nowrap;
-  justify-content: space-around;
+  justify-content: space-evenly;
 }
 
 .grid {
   display: flex;
+  flex-flow: column nowrap;
   border: 1px solid black;
+  width: 40%;
+}
+
+.grid-row {
+  display: inline-flex;
 }
 
 .grid-cell {
-  min-width: 20px;
-  min-height: 20px;
+  width: 100%;
+}
+
+.grid-cell:before {
+  content:'';
+  float:left;
+  padding-top:100%;
+}
+
+.controls {
+  width: 40%;
+  border: 1px solid black;
 }
