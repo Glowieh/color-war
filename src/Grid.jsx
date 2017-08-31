@@ -4,10 +4,6 @@ import GridCell from './GridCell.jsx';
 import { Config } from './Config.jsx';
 
 class Grid extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   renderGrid() {
     let rows = new Array(Config.gridHeight);
     rows.fill(0);
@@ -26,7 +22,7 @@ class Grid extends Component {
         <GridCell
           key={index.toString()}
           index={row*Config.gridWidth+index}
-          color={Config.colors[cell]} />
+          color={cell} />
       )
     );
   }
