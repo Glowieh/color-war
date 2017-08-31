@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import ColorButton from './ColorButton.jsx';
 
 class ColorPicker extends Component {
-
   render() {
     let availableColors = [0, 1, 2, 3, 4, 5];
 
@@ -15,7 +14,10 @@ class ColorPicker extends Component {
             if(color === this.props.player1Color || color === this.props.player2Color) {
               return null;
             }
-            return <ColorButton color={color} />;
+            return <ColorButton
+              key={color}
+              color={color}
+              onPickColor={this.props.handlePickColor} />;
           })
         }
       </div>

@@ -38,6 +38,10 @@
   vertical-align: middle;
 }
 
+.current-player {
+  text-decoration: underline;
+}
+
 .current-color-title {
   display: inline-block;
 }

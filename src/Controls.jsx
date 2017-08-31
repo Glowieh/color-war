@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import CurrentColor from './CurrentColor.jsx';
 import ColorPicker from './ColorPicker.jsx';
+import Winner from './Winner.jsx';
 import Undo from './Undo.jsx';
 
 class Controls extends Component {
@@ -9,16 +10,24 @@ class Controls extends Component {
     return (
       <div className="controls">
         <div className="current-colors">
+          <Winner winner={this.props.winner} />
           <CurrentColor
-            player="1"
-            color={this.props.player1Color} />
+            player={1}
+            color={this.props.player1Color}
+            currentPlayer={this.props.currentPlayer} />
           <CurrentColor
-            player="2"
-            color={this.props.player2Color} />
+            player={2}
+            color={this.props.player2Color}
+            currentPlayer={this.props.currentPlayer} />
         </div>
-        <ColorPicker
-          player1Color={this.props.player1Color}
-          player2Color={this.props.player2Color} />
+        {
+          ((this.props.winner === 0) ?
+            <ColorPicker
+              player1Color={this.props.player1Color}
+              player2Color={this.props.player2Color}
+              handlePickColor={this.props.handlePickColor} />
+            : "")
+        }
         <Undo />
       </div>
     );

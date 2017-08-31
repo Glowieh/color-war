@@ -1,4 +1,4 @@
 export const Config = {
-  gridWidth: 40,
-  gridHeight: 40,
+  gridWidth: 5,
+  gridHeight: 5,
   colors: ["blue", "red", "green", "yellow", "purple", "orange"]};
