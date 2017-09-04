@@ -3,22 +3,34 @@ import './App.css';
 
 import Grid from './Grid.jsx';
 import Controls from './Controls.jsx';
+
 import { Config } from './Config.jsx';
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {grid: [], player1Color: 0, player2Color: 1, currentPlayer: 1, winner: 0};
+    this.state = {grid: [], player1Color: 0, player2Color: 1, currentPlayer: 1, winner: 0, gridSize: {width: Config.defaultGridWidth, height: Config.defaultGridHeight}};
     this.handlePickColor = this.handlePickColor.bind(this);
+    this.handleSetGrid = this.handleSetGrid.bind(this);
   }
 
   componentDidMount() {
-    let grid = new Array(Config.gridWidth*Config.gridHeight);
+    this.initGame();
+  }
+
+  initGame() {
+    let grid = new Array(this.state.gridSize.width*this.state.gridSize.height);
+
     grid.fill(0);
     grid = grid.map(() => Math.floor(Math.random() * 6));
     grid[0] = 0;
-    grid[Config.gridWidth*Config.gridHeight-1] = 1;
-    this.setState({grid: grid, player1Color: grid[0], player2Color: grid[Config.gridWidth*Config.gridHeight-1]});
+    grid[this.state.gridSize.width*this.state.gridSize.height-1] = 1;
+
+    this.setState({grid: grid, player1Color: grid[0], player2Color: grid[this.state.gridSize.width*this.state.gridSize.height-1], currentPlayer: 1, winner: 0});
+  }
+
+  handleSetGrid(width, height) {
+    this.setState({gridSize: {width: width, height: height}}, this.initGame);
   }
 
   handlePickColor(e) {
@@ -33,8 +45,8 @@ class App extends Component {
       player2Color = this.state.player2Color;
     }
     else {
-      x = Config.gridWidth-1;
-      y = Config.gridHeight-1;
+      x = this.state.gridSize.width-1;
+      y = this.state.gridSize.height-1;
       nextPlayer = 1;
       player1Color = this.state.player1Color;
       player2Color = color;
@@ -43,6 +55,7 @@ class App extends Component {
     this.floodFill(grid, color, x, y);
     if(this.checkWin(color, grid)) {
       winner = this.state.currentPlayer;
+      nextPlayer = this.state.currentPlayer;
     }
     this.setState({grid: grid, currentPlayer: nextPlayer, player1Color: player1Color, player2Color: player2Color, winner: winner});
   }
@@ -51,13 +64,13 @@ class App extends Component {
     let originalColor = grid[this.getGridIndex(x, y)];
     grid[this.getGridIndex(x, y)] = color;
 
-    if(x+1 < Config.gridWidth && grid[this.getGridIndex(x+1, y)] === originalColor) {
+    if(x+1 < this.state.gridSize.width && grid[this.getGridIndex(x+1, y)] === originalColor) {
       this.floodFill(grid, color, x+1, y);
     }
     if(x-1 >= 0 && grid[this.getGridIndex(x-1, y)] === originalColor) {
       this.floodFill(grid, color, x-1, y);
     }
-    if(y+1 < Config.gridHeight && grid[this.getGridIndex(x, y+1)] === originalColor) {
+    if(y+1 < this.state.gridSize.height && grid[this.getGridIndex(x, y+1)] === originalColor) {
       this.floodFill(grid, color, x, y+1);
     }
     if(y-1 >= 0 && grid[this.getGridIndex(x, y-1)] === originalColor) {
@@ -66,7 +79,7 @@ class App extends Component {
   }
 
   getGridIndex(x, y) {
-    return Config.gridWidth * y + x;
+    return this.state.gridSize.width * y + x;
   }
 
   checkWin(color, grid) {
@@ -77,7 +90,7 @@ class App extends Component {
       return sum;
     }, 0);
 
-    if(acc*2 >= Config.gridWidth*Config.gridHeight) {
+    if(acc*2 >= this.state.gridSize.width*this.state.gridSize.height) {
       return true;
     }
     else {
@@ -90,13 +103,16 @@ class App extends Component {
       <div>
         <h1 className="title">Color War</h1>
         <div className="main-container">
-          <Grid grid={this.state.grid} />
+          <Grid
+            grid={this.state.grid}
+            gridSize={this.state.gridSize} />
           <Controls
             player1Color={this.state.player1Color}
             player2Color={this.state.player2Color}
             currentPlayer={this.state.currentPlayer}
             winner={this.state.winner}
-            handlePickColor={this.handlePickColor} />
+            handlePickColor={this.handlePickColor}
+            handleSetGrid={this.handleSetGrid} />
         </div>
       </div>
     );

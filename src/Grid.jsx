@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 
 import GridCell from './GridCell.jsx';
-import { Config } from './Config.jsx';
 
 class Grid extends Component {
   renderGrid() {
-    let rows = new Array(Config.gridHeight);
+    let rows = new Array(this.props.gridSize.height);
     rows.fill(0);
     return (
       rows.map((elem, row) =>
@@ -18,10 +17,10 @@ class Grid extends Component {
 
   renderGridRow(row) {
     return (
-      this.props.grid.slice(row*Config.gridWidth, (row+1)*Config.gridWidth).map((cell, index) =>
+      this.props.grid.slice(row*this.props.gridSize.width, (row+1)*this.props.gridSize.width).map((cell, index) =>
         <GridCell
           key={index.toString()}
-          index={row*Config.gridWidth+index}
+          index={row*this.props.gridSize.width+index}
           color={cell} />
       )
     );

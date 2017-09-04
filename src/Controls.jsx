@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import GridSizer from './GridSizer.jsx';
 import CurrentColor from './CurrentColor.jsx';
 import ColorPicker from './ColorPicker.jsx';
 import Winner from './Winner.jsx';
@@ -10,6 +11,8 @@ class Controls extends Component {
     return (
       <div className="controls">
         <div className="current-colors">
+          <GridSizer
+            onSetGrid={this.props.handleSetGrid} />
           <Winner winner={this.props.winner} />
           <CurrentColor
             player={1}
