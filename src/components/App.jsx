@@ -11,6 +11,7 @@ class App extends Component {
     super(props);
     this.handlePickColor = this.handlePickColor.bind(this);
     this.handleSetGrid = this.handleSetGrid.bind(this);
+    this.handleUndo = this.handleUndo.bind(this);
   }
 
   componentDidMount() {
@@ -35,6 +36,12 @@ class App extends Component {
     }
   }
 
+  handleUndo() {
+    if(this.props.undoSteps !== 0) {
+      this.props.undo();
+    }
+  }
+
   render() {
     return (
       <div>
@@ -50,7 +57,9 @@ class App extends Component {
             currentPlayer={this.props.currentPlayer}
             winner={this.props.winner}
             handlePickColor={this.handlePickColor}
-            handleSetGrid={this.handleSetGrid} />
+            handleSetGrid={this.handleSetGrid}
+            undoSteps={this.props.undoSteps}
+            handleUndo={this.handleUndo} />
         </div>
       </div>
     );

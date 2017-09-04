@@ -1,13 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
+import undoable from 'redux-undo';
 import reducer from './reducers/reducer'
 
 import AppContainer from './containers/AppContainer';
 
-let store = createStore(reducer);
+let store = createStore(
+  combineReducers({reducer: undoable(reducer)})
+);
 
 ReactDOM.render(
   <Provider store={store}>

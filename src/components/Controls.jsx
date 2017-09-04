@@ -31,7 +31,9 @@ class Controls extends Component {
               handlePickColor={this.props.handlePickColor} />
             : "")
         }
-        <Undo />
+        <Undo
+          undoSteps={this.props.undoSteps}
+          onUndo={this.props.handleUndo} />
       </div>
     );
   }
