@@ -29,7 +29,10 @@ class App extends Component {
   }
 
   handlePickColor(e) {
-    this.props.pickColor(parseInt(e.target.value, 10));
+    let color = parseInt(e.target.value, 10);
+    if(this.props.winner === 0 && color !== this.props.player1Color && color !== this.props.player2Color) {
+      this.props.pickColor(color);
+    }
   }
 
   render() {
@@ -39,7 +42,8 @@ class App extends Component {
         <div className="main-container">
           <Grid
             grid={this.props.grid}
-            gridSize={this.props.gridSize} />
+            gridSize={this.props.gridSize}
+            handlePickColor={this.handlePickColor} />
           <Controls
             player1Color={this.props.player1Color}
             player2Color={this.props.player2Color}

@@ -14,7 +14,9 @@ const reducer = (state = initialState, action) => {
         grid: action.grid,
         gridSize: action.gridSize,
         player1Color: action.grid[0],
-        player2Color: action.grid[action.gridSize.width*action.gridSize.height-1]
+        player2Color: action.grid[action.gridSize.width*action.gridSize.height-1],
+        winner: 0,
+        currentPlayer: 1
       })
     }
     case 'PICK_COLOR': {

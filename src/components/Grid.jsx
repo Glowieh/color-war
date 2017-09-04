@@ -21,7 +21,8 @@ class Grid extends Component {
         <GridCell
           key={index.toString()}
           index={row*this.props.gridSize.width+index}
-          color={cell} />
+          color={cell}
+          onPickColor={this.props.handlePickColor} />
       )
     );
   }
