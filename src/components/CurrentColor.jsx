@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Config } from './Config.jsx';
+import { Config } from '../Config.jsx';
 
 function CurrentColor(props) {
   return (

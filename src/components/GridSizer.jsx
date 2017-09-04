@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Config } from './Config.jsx';
+import { Config } from '../Config.jsx';
 
 class GridSizer extends Component {
   constructor(props) {
